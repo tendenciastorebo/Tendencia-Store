@@ -1,0 +1,12 @@
+:root {
+  --pink: #f472a8;
+  --pink-dark: #a52d62;
+  --black: #171717;
+  --white: #ffffff;
+  --muted: #737373;
+  --line: #e9e5e6;
+  --soft: #fff4f8;
+  --max: 1440px;
+  --font-title: 'Montserrat', Arial, Helvetica, sans-serif;
+  --font-text: 'Inter', Arial, Helvetica, sans-serif;
+}
