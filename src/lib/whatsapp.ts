@@ -32,14 +32,26 @@ export function sizeSummary(p: Product): string {
 }
 
 /** Mensaje aprobado: sin emojis, negritas con asteriscos simples de WhatsApp. */
-export function buildMessage(productName: string, size: string, price: number | null): string {
+
+export function buildMessage(
+  customerName: string,
+  productName: string,
+  size: string,
+  price: number | null
+): string {
   const priceText = price === null ? 'Por confirmar' : formatPrice(price)
-  return (
-    '¡Hola, *Tendencia Store*!\n\n' +
-    'Me interesa esta prenda y quisiera consultar su disponibilidad.\n\n' +
-    `- *Prenda:* ${productName}\n` +
-    `- *Talla:* ${size}\n` +
-    `- *Precio publicado:* ${priceText}\n\n` +
-    '*¿Podrían confirmarme si está disponible y brindarme información sobre las opciones de entrega?* ¡Muchas gracias!'
-  )
+
+  return [
+    '¡Hola, *Tendencia Store*! 💗',
+    '',
+    `Mi nombre es: *${customerName.trim()}*`,
+    '',
+    'Me interesa esta prenda y quisiera consultar su disponibilidad. ✨',
+    '',
+    `• *Prenda:* ${productName} 👗`,
+    `• *Talla:* ${size}`,
+    `• *Precio publicado:* ${priceText} 💰`,
+    '',
+    '*¿Podrían confirmarme si está disponible y brindarme información sobre las opciones de entrega?* 🚚 ¡Muchas gracias! 💕'
+  ].join('\n')
 }

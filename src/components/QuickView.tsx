@@ -40,7 +40,8 @@ export default function QuickView({ product, whatsapp, onClose, onNotify }: Prop
       nameRef.current?.setCustomValidity('')
       return
     }
-    const message = buildMessage(product.name, size, product.price)
+    const message = buildMessage(customer, product.name, size, product.price)
+    console.log('MENSAJE GENERADO:', message)
     // Se registra la consulta para el panel de administración (si falla, no se bloquea el pedido).
     void supabase
       .from('orders')
@@ -53,6 +54,7 @@ export default function QuickView({ product, whatsapp, onClose, onNotify }: Prop
       })
       .then(() => undefined)
     onNotify(`Preparando tu consulta de ${product.name}`)
+    console.log('ENLACE WHATSAPP:', waLink(whatsapp, message))
     window.open(waLink(whatsapp, message), '_blank', 'noopener,noreferrer')
   }
 
