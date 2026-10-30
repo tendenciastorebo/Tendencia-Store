@@ -101,16 +101,12 @@ export default function Store() {
           <a href="#contacto">CONTACTO</a>
         </nav>
         <div className="header-actions">
-          <a className="button header-order" href={generic} target="_blank" rel="noopener noreferrer">
-            Pedido por WhatsApp
-          </a>
-          <button
-            className="icon-button"
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+ <button
+  className="icon-button"
+  aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+  aria-expanded={menuOpen}
+  onClick={() => setMenuOpen((v) => !v)}
+>            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </header>
