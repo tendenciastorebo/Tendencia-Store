@@ -9,8 +9,11 @@ h1,h2,h3{font-family:var(--font-title)}
 .announcement{background:#000;color:#fff;padding:10px 16px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
 .container{width:min(var(--max),100% - 64px);margin-inline:auto}
 .header{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:92px;border-bottom:1px solid var(--line)}
-.logo{width:94px;height:80px;object-fit:contain}
-.nav{display:flex;align-items:center;gap:28px;font-size:12px;font-weight:700}
+.logo {
+  width: 340px;
+  height: 130px;
+  object-fit: contain;
+}.nav{display:flex;align-items:center;gap:28px;font-size:12px;font-weight:700}
 .nav a{padding:36px 0;border-bottom:2px solid transparent}
 .nav a:hover{border-color:var(--pink)}
 .header-actions{display:flex;align-items:center;gap:16px}
@@ -126,5 +129,53 @@ body.modal-open{overflow:hidden}
     grid-column: 3;
     grid-row: 1;
     justify-self: end;
+  }
+}/* Logo destacado en celulares */
+@media (max-width: 640px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    min-height: 110px;
+  }
+
+  .logo {
+    width: 210px;
+    height: 90px;
+    object-fit: contain;
+  }
+
+  .header > a:first-child {
+    justify-self: center;
+  }
+
+  .header-actions {
+    justify-self: end;
+  }
+}
+
+/* Barra superior con texto en movimiento */
+.announcement {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.announcement-track {
+  display: flex;
+  width: max-content;
+  animation: anuncio-movimiento 18s linear infinite;
+}
+
+.announcement-track span {
+  flex-shrink: 0;
+  padding-right: 40px;
+}
+
+@keyframes anuncio-movimiento {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
   }
 }

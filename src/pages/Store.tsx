@@ -89,11 +89,14 @@ export default function Store() {
 
   return (
     <>
-      <div className="announcement">{settings.announcement}</div>
-      <header className="container header">
+<div className="announcement">
+  <div className="announcement-track">
+    <span>{settings.announcement}</span>
+    <span aria-hidden="true">{settings.announcement}</span>
+  </div>
+</div>      <header className="container header">
         <a href="#inicio" aria-label="Tendencia Store, inicio">
-          <img className="logo" src="/logo.svg" alt="Logo oficial de Tendencia Store" />
-        </a>
+<img className="logo" src="/logo-tendencia.svg" alt="Logo oficial de Tendencia Store" />        </a>
         <nav className="nav" aria-label="Navegación principal">
           <a href="#inicio">INICIO</a>
           <a href="#categorias">COLECCIONES</a>
