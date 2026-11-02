@@ -124,7 +124,12 @@ body.modal-open{overflow:hidden}
     grid-row: 1;
     justify-self: center;
   }
-
+.header .logo {
+  width: 240px;
+  height: 110px;
+  max-width: 100%;
+  object-fit: contain;
+}
   .header-actions {
     grid-column: 3;
     grid-row: 1;
@@ -173,9 +178,9 @@ body.modal-open{overflow:hidden}
 
 @keyframes anuncio-movimiento {
   from {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }

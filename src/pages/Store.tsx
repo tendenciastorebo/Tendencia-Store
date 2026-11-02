@@ -90,10 +90,12 @@ export default function Store() {
   return (
     <>
 <div className="announcement">
-  <div className="announcement-track">
-    <span>{settings.announcement}</span>
-    <span aria-hidden="true">{settings.announcement}</span>
-  </div>
+<div className="announcement-track">
+  <span>{settings.announcement}</span>
+  <span>{settings.announcement}</span>
+  <span>{settings.announcement}</span>
+  <span>{settings.announcement}</span>
+</div>
 </div>      <header className="container header">
         <a href="#inicio" aria-label="Tendencia Store, inicio">
 <img className="logo" src="/logo-tendencia.svg" alt="Logo oficial de Tendencia Store" />        </a>
@@ -232,7 +234,7 @@ export default function Store() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <img className="footer-logo" src="/logo.svg" alt="Logo oficial de Tendencia Store" />
+              <img className="footer-logo" src="/logo-tendencia.svg" alt="Logo oficial de Tendencia Store" />
               <p>Moda · Estilo · Personalidad<br />Pedidos únicamente por WhatsApp: {phoneShown}.</p>
             </div>
             <div>
