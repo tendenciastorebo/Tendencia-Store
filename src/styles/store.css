@@ -136,28 +136,6 @@ body.modal-open{overflow:hidden}
     justify-self: end;
   }
 }/* Logo destacado en celulares */
-@media (max-width: 640px) {
-  .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    min-height: 110px;
-  }
-
-  .logo {
-    width: 210px;
-    height: 90px;
-    object-fit: contain;
-  }
-
-  .header > a:first-child {
-    justify-self: center;
-  }
-
-  .header-actions {
-    justify-self: end;
-  }
-}
 
 /* Barra superior con texto en movimiento */
 .announcement {
