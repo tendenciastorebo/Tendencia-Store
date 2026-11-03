@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Banknote, Boxes, Package, Tags, ClipboardList, Settings } from 'lucide-react'
 import { isConfigured } from '../../lib/supabase'
 import { useAdminAuth } from '../../lib/useAdminAuth'
 
 export default function AdminLayout() {
   const { session, state, signIn, signOut } = useAdminAuth()
+  const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -68,15 +70,21 @@ export default function AdminLayout() {
     )
   }
 
+  if (state === 'seller' && !['/admin/punto-de-venta', '/admin/inventario'].includes(location.pathname)) {
+    return <Navigate to="/admin/punto-de-venta" replace />
+  }
+
   return (
     <div className="admin">
       <div className="admin-top">
         <strong>TENDENCIA STORE · Admin</strong>
         <nav className="admin-nav">
-          <NavLink to="productos" className={({ isActive }) => (isActive ? 'active' : '')}>Productos</NavLink>
-          <NavLink to="categorias" className={({ isActive }) => (isActive ? 'active' : '')}>Categorías</NavLink>
-          <NavLink to="pedidos" className={({ isActive }) => (isActive ? 'active' : '')}>Pedidos</NavLink>
-          <NavLink to="ajustes" className={({ isActive }) => (isActive ? 'active' : '')}>Ajustes</NavLink>
+          <NavLink to="punto-de-venta" className={({ isActive }) => (isActive ? 'active' : '')}><Banknote size={15}/> Punto de venta</NavLink>
+          <NavLink to="inventario" className={({ isActive }) => (isActive ? 'active' : '')}><Boxes size={15}/> Inventario</NavLink>
+          {state === 'admin' && <NavLink to="productos" className={({ isActive }) => (isActive ? 'active' : '')}><Package size={15}/> Productos</NavLink>}
+          {state === 'admin' && <NavLink to="categorias" className={({ isActive }) => (isActive ? 'active' : '')}><Tags size={15}/> Categorías</NavLink>}
+          {state === 'admin' && <NavLink to="pedidos" className={({ isActive }) => (isActive ? 'active' : '')}><ClipboardList size={15}/> Pedidos</NavLink>}
+          {state === 'admin' && <NavLink to="ajustes" className={({ isActive }) => (isActive ? 'active' : '')}><Settings size={15}/> Ajustes</NavLink>}
         </nav>
         <span>
           <a className="link" href="/" target="_blank" rel="noopener noreferrer">Ver tienda</a>

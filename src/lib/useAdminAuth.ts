@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './supabase'
 
-export type AuthState = 'loading' | 'out' | 'not-admin' | 'admin'
+export type AuthState = 'loading' | 'out' | 'not-admin' | 'admin' | 'seller'
 
 export function useAdminAuth() {
   const [session, setSession] = useState<Session | null>(null)
@@ -11,8 +11,10 @@ export function useAdminAuth() {
   const check = useCallback(async (s: Session | null) => {
     setSession(s)
     if (!s) return setState('out')
-    const { data, error } = await supabase.rpc('is_admin')
-    setState(!error && data === true ? 'admin' : 'not-admin')
+    const admin = await supabase.rpc('is_admin')
+    if (!admin.error && admin.data === true) { setState('admin'); return }
+    const staff = await supabase.rpc('is_staff')
+    setState(!staff.error && staff.data === true ? 'seller' : 'not-admin')
   }, [])
 
   useEffect(() => {
