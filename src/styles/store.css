@@ -162,3 +162,70 @@ body.modal-open{overflow:hidden}
     transform: translateX(-50%);
   }
 }
+/* TARJETAS Y DISEÑO DE PRODUCTOS */
+
+.product-card {
+  overflow: visible;
+  border-radius: 18px;
+}
+
+.product-image {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f8f3f5;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.product-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.product-meta {
+  font-size: 12px;
+}
+
+.price {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* CATEGORÍAS */
+
+.category-card {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* BOTONES PRINCIPALES */
+
+.hero-copy .button-row .button {
+  border-radius: 16px;
+}
+
+/* FILTROS */
+
+.filter {
+  background: #171717;
+  color: #fff;
+  border-color: #171717;
+  border-radius: 10px;
+}
+
+.filter.active {
+  background: #F472A8;
+  color: #171717;
+  border-color: #F472A8;
+}
+
+.filter:hover:not(.active) {
+  background: #171717;
+  color: #fff;
+}
