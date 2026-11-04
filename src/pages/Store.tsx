@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Heart, MessageCircle, Truck } from 'lucide-react'
 import { DEFAULT_SETTINGS, type Category, type Product, type Settings } from '../types'
 import { isConfigured, supabase } from '../lib/supabase'
 import { waLink } from '../lib/whatsapp'
@@ -17,7 +17,29 @@ export default function Store() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [toast, setToast] = useState('')
   const toastTimer = useRef<number>()
+const bannerImages = useMemo(
+  () =>
+    [
+      settings.hero_image_1,
+      settings.hero_image_2,
+      settings.hero_image_3,
+    ].filter((image): image is string => Boolean(image)),
+  [settings.hero_image_1, settings.hero_image_2, settings.hero_image_3],
+)
 
+const [activeBanner, setActiveBanner] = useState(0)
+useEffect(() => {
+  if (bannerImages.length <= 1) {
+    setActiveBanner(0)
+    return
+  }
+
+  const interval = window.setInterval(() => {
+    setActiveBanner((current) => (current + 1) % bannerImages.length)
+  }, 5000)
+
+  return () => window.clearInterval(interval)
+}, [bannerImages])
   useEffect(() => {
     if (!isConfigured) {
       setLoading(false)
@@ -66,26 +88,15 @@ export default function Store() {
     )
   }
 
-  const generic = waLink(settings.whatsapp, 'Hola Tendencia Store, quiero hacer un pedido por WhatsApp.')
   const pickCategory = (id: string) => {
     setFilter(id)
     setMenuOpen(false)
   }
-  const [heroLine1, ...heroRest] = settings.hero_title.split('. ')
-  const heroTitle = heroRest.length ? (
-    <>
-      {heroLine1}.<br />
-      {heroRest.join('. ')}
-    </>
-  ) : (
-    settings.hero_title
-  )
   const socials = [
-    { name: 'Instagram', url: settings.instagram },
-    { name: 'Facebook', url: settings.facebook },
-    { name: 'TikTok', url: settings.tiktok },
-  ].filter((s) => s.url)
-  const phoneShown = settings.whatsapp.replace(/^591/, '')
+  { name: 'Instagram', url: settings.instagram },
+  { name: 'Facebook', url: settings.facebook },
+  { name: 'TikTok', url: settings.tiktok },
+].filter((s) => s.url)
 
   return (
     <>
@@ -129,33 +140,65 @@ export default function Store() {
       </nav>
 
       <main>
-        <section className="container hero" id="inicio">
-          <div className="hero-copy">
-            <div className="eyebrow">Tu próxima prenda favorita</div>
-            <h1>{heroTitle}</h1>
-            <p>{settings.hero_text}</p>
-            <div className="button-row">
-              <a className="button" href={generic} target="_blank" rel="noopener noreferrer">
-                Pedido por WhatsApp
-              </a>
-              <a className="button button-outline" href="#categorias">
-                Explorar colecciones
-              </a>
-            </div>
-          </div>
-          <div className="hero-visual">
-            <img src="/hero.webp" alt="Colección de moda femenina de Tendencia Store" />
-            <div className="hero-tag">NUEVA TEMPORADA · 2026</div>
-          </div>
-        </section>
+       <section className="container hero" id="inicio">
+  <div className="hero-visual">
+    {bannerImages.length > 0 ? (
+      bannerImages.map((image, index) => (
+        <img
+          key={image}
+          className={`hero-slide${index === activeBanner ? ' active' : ''}`}
+          src={image}
+          alt={`Banner ${index + 1} de Tendencia Store`}
+        />
+      ))
+    ) : (
+      <img
+        className="hero-slide active"
+        src="/hero.webp"
+        alt="Colección de moda femenina de Tendencia Store"
+      />
+    )}
 
-        <div className="container benefits">
-          <div className="benefit"><strong>ESTILO PARA TI</strong>Prendas elegidas con personalidad</div>
-          <div className="benefit"><strong>COMPRA FÁCIL</strong>Pedidos directos por WhatsApp</div>
-          <div className="benefit"><strong>ENVÍOS</strong>Consulta cobertura en Bolivia</div>
-        </div>
+    {bannerImages.length > 1 && (
+      <div className="hero-dots">
+        {bannerImages.map((image, index) => (
+          <button
+            key={image}
+            type="button"
+            className={`hero-dot${index === activeBanner ? ' active' : ''}`}
+            aria-label={`Mostrar banner ${index + 1}`}
+            aria-pressed={index === activeBanner}
+            onClick={() => setActiveBanner(index)}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</section>
 
-        {usedCategories.length > 0 && (
+<div className="container benefits">
+  <div className="benefit">
+    <span className="benefit-icon"><Heart size={24} /></span>
+    <strong>ESTILO ÚNICO</strong>
+    <span>Prendas para ti</span>
+  </div>
+
+
+
+  <div className="benefit">
+    <span className="benefit-icon"><MessageCircle size={24} /></span>
+    <strong>COMPRA FÁCIL</strong>
+    <span>Por WhatsApp</span>
+  </div>
+
+  <div className="benefit">
+    <span className="benefit-icon"><Truck size={24} /></span>
+    <strong>ENVÍOS</strong>
+    <span>A nivel nacional</span>
+  </div>
+</div>
+
+                {usedCategories.length > 0 && (
           <section className="container section" id="categorias">
             <div className="section-heading">
               <div>
@@ -218,54 +261,77 @@ export default function Store() {
           </div>
         </section>
 
-        <section className="container contact-banner" id="contacto">
-          <div>
-            <div className="eyebrow">Estamos para ayudarte</div>
-            <h2>¿Lista para encontrar tu próximo look?</h2>
-            <p>Consulta tallas, disponibilidad y opciones de entrega.</p>
-          </div>
-          <a className="button" href={waLink(settings.whatsapp, 'Hola Tendencia Store, quiero consultar por sus productos.')} target="_blank" rel="noopener noreferrer">
-            Pedido por WhatsApp
-          </a>
-        </section>
+        
       </main>
 
       <footer className="footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div>
-              <img className="footer-logo" src="/logo-tendencia.svg" alt="Logo oficial de Tendencia Store" />
-              <p>Moda · Estilo · Personalidad<br />Pedidos únicamente por WhatsApp: {phoneShown}.</p>
-            </div>
-            <div>
-              <h3>Explora</h3>
-              <p>
-                {usedCategories.map((c) => (
-                  <span key={c.id}>
-                    <a href="#productos" onClick={() => pickCategory(c.id)}>{c.name}</a>
-                    <br />
-                  </span>
-                ))}
-              </p>
-            </div>
-            <div>
-              <h3>Contacto</h3>
-              <p>
-                <a href={waLink(settings.whatsapp)} target="_blank" rel="noopener noreferrer">WhatsApp: {phoneShown}</a>
-                <br />
-                Bolivia
-                {socials.map((s) => (
-                  <span key={s.name}>
-                    <br />
-                    <a href={s.url ?? '#'} target="_blank" rel="noopener noreferrer">{s.name}</a>
-                  </span>
-                ))}
-              </p>
-            </div>
-          </div>
-          <div className="copyright">© {new Date().getFullYear()} Tendencia Store · Todos los derechos reservados.</div>
-        </div>
-      </footer>
+  <div className="container footer-container">
+
+    <div className="footer-brand">
+      <img
+        className="footer-logo"
+        src="/logo-tendencia.svg"
+        alt="Tendencia Store"
+      />
+      <p>Moda · Estilo · Personalidad</p>
+    </div>
+
+    <div className="footer-contact">
+      <h3>CONTACTO</h3>
+
+ 
+      <div className="footer-socials">
+        <a
+  className="footer-whatsapp"
+  href={waLink(settings.whatsapp)}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="WhatsApp"
+  title="WhatsApp"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1C18.7 23.6 24 18.3 24 11.8c0-3.1-1.2-6.1-3.5-8.3ZM12.1 21.6c-1.7 0-3.4-.5-4.8-1.3l-.4-.2-3.9 1 1-3.8-.3-.4a9.7 9.7 0 1 1 8.4 4.7Zm5.3-7.3c-.3-.2-1.7-.8-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.6-1-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.4 4.7.8.4 1.4.6 1.9.7.8.3 1.5.2 2 .1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.5Z" />
+  </svg>
+</a>
+        {socials.map((s) => (
+          <a
+            key={s.name}
+            href={s.url ?? '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.name}
+            title={s.name}
+          >
+            {s.name === 'Instagram' && (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2.2" />
+                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2.2" />
+                <circle cx="17.5" cy="6.8" r="1.2" fill="currentColor" />
+              </svg>
+            )}
+
+            {s.name === 'Facebook' && (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H7.3V13h2.8v8h3.4Z" />
+              </svg>
+            )}
+
+            {s.name === 'TikTok' && (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M19.5 7.1c-1.5-.1-2.7-.9-3.4-2.1-.3-.5-.5-1.1-.5-1.7V3h-3.4v12.5c0 1.5-1.2 2.7-2.7 2.7s-2.7-1.2-2.7-2.7 1.2-2.7 2.7-2.7c.3 0 .6 0 .9.1V9.4c-.3 0-.6-.1-.9-.1-3.4 0-6.1 2.7-6.1 6.1s2.7 6.1 6.1 6.1 6.1-2.7 6.1-6.1V9.1c1.1.8 2.5 1.3 3.9 1.3V7.1Z" />
+              </svg>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div className="copyright">
+      © {new Date().getFullYear()} Tendencia Store · Todos los derechos reservados.
+    </div>
+
+  </div>
+</footer>
 
       {selected && <QuickView product={selected} whatsapp={settings.whatsapp} onClose={closeModal} onNotify={notify} />}
       <div className={`toast${toast ? ' show' : ''}`} role="status" aria-live="polite">{toast}</div>

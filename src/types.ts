@@ -30,6 +30,9 @@ export interface Settings {
   instagram: string | null
   facebook: string | null
   tiktok: string | null
+  hero_image_1: string | null
+  hero_image_2: string | null
+  hero_image_3: string | null
 }
 
 export type OrderStatus = 'nuevo' | 'contactado' | 'vendido' | 'cancelado'
@@ -53,7 +56,10 @@ export const DEFAULT_SETTINGS: Settings = {
   hero_title: 'Viste como te sientes.',
   hero_text:
     'Descubre vestidos, conjuntos y enterizos para expresar tu estilo. Consulta tallas, disponibilidad y precios directamente con nosotros.',
-  instagram: null,
-  facebook: null,
-  tiktok: null,
+instagram: null,
+facebook: null,
+tiktok: null,
+hero_image_1: null,
+hero_image_2: null,
+hero_image_3: null,
 }

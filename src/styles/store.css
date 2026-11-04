@@ -30,7 +30,14 @@ h1,h2,h3{font-family:var(--font-title)}
 .button:disabled{opacity:.5;cursor:not-allowed}
 .button-outline{background:#fff;color:var(--black)}
 .hero-visual{min-height:580px;position:relative;background:#f8e7ee;overflow:hidden}
-.hero-visual img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center 35%}
+.hero-visual img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: center 35%;
+}
 .hero-tag{position:absolute;left:22px;bottom:22px;background:var(--pink);padding:16px 20px;font-size:13px;font-weight:700}
 .section{padding:72px 0}
 .section-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:25px}
@@ -109,8 +116,17 @@ body.modal-open{overflow:hidden}
 
 @media(max-width:900px){.container{width:calc(100% - 40px)}.nav{gap:16px}.hero{grid-template-columns:1fr}.hero-copy{order:2;padding:42px 0}.hero-visual{order:1;min-height:480px}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.category-card{height:250px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}.editorial{grid-template-columns:1fr}.editorial-image{min-height:340px}.contact-banner{padding:30px;display:block}.contact-banner .button{margin-top:10px}}
 @media(max-width:680px){.quick-view{padding:10px}.quick-view-panel{grid-template-columns:1fr;max-height:94vh;width:min(520px,100%)}.quick-view-photo{min-height:0;height:42vh;max-height:390px}.quick-view-photo img{max-height:42vh}.quick-view-info{padding:22px}.quick-view-info h2{font-size:25px;margin:9px 0}.quick-view-price{margin:5px 0 12px}}
-@media(max-width:640px){.container{width:calc(100% - 32px)}.announcement{font-size:9px;letter-spacing:.06em}.header{min-height:72px}.logo{width:72px;height:64px}.nav{display:none}.icon-button{display:inline-flex}.header-actions{gap:8px}.header-order{min-height:38px;padding:0 10px;font-size:8px;letter-spacing:.04em}.hero-visual{min-height:370px}.hero h1{font-size:48px}.benefits{grid-template-columns:1fr;gap:18px}.section{padding:52px 0}.section-heading p{display:none}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.category-card{height:220px}.product-grid{gap:20px 10px}.quick-add{font-size:9px;left:6px;right:6px;bottom:6px;width:calc(100% - 12px);min-height:38px}.editorial-image{min-height:280px}.editorial-copy{padding:30px 22px}.contact-banner{padding:28px 22px}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}}
-@media(max-width:380px){.hero h1{font-size:41px}.hero-visual{min-height:320px}.category-card{height:185px}.footer-grid{grid-template-columns:1fr}.footer-grid>div:first-child{grid-column:auto}}
+@media(max-width:640px){.container{width:calc(100% - 32px)}.announcement{font-size:9px;letter-spacing:.06em}.header{min-height:72px}.logo{width:72px;height:64px}.nav{display:none}.icon-button{display:inline-flex}.header-actions{gap:8px}.header-order{min-height:38px;padding:0 10px;font-size:8px;letter-spacing:.04em}.hero-visual {
+  min-height: 190px;
+  height: 190px;
+}.hero h1{font-size:48px}.benefits{grid-template-columns:1fr;gap:18px}.section{padding:52px 0}.section-heading p{display:none}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.category-card{height:220px}.product-grid{gap:20px 10px}.quick-add{font-size:9px;left:6px;right:6px;bottom:6px;width:calc(100% - 12px);min-height:38px}.editorial-image{min-height:280px}.editorial-copy{padding:30px 22px}.contact-banner{padding:28px 22px}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}}
+@media(max-width:380px){
+  .hero h1{font-size:36px}
+  .hero-visual{min-height:190px;height:190px}
+  .category-card{height:125px}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-grid>div:first-child{grid-column:auto}
+}
 /* Encabezado móvil: logo centrado y menú a la derecha */
 @media (max-width: 640px) {
   .header {
@@ -199,9 +215,39 @@ body.modal-open{overflow:hidden}
 
 /* CATEGORÍAS */
 
+/* CATEGORÍAS MÁS COMPACTAS */
+
 .category-card {
-  border-radius: 20px;
+  height: 190px;
+  border-radius: 16px;
   overflow: hidden;
+}
+
+.category-grid {
+  gap: 10px;
+}
+
+.category-title {
+  left: 12px;
+  bottom: 12px;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .category-card {
+    height: 145px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .category-card {
+    height: 125px;
+  }
 }
 
 /* BOTONES PRINCIPALES */
@@ -250,4 +296,348 @@ body.modal-open{overflow:hidden}
 
 .quick-view-close {
   border-radius: 50%;
+}
+/* BENEFICIOS COMPACTOS TENDENCIA STORE */
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #555;
+}
+
+.benefit-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #FCE7F0;
+  color: #B93670;
+  margin-bottom: 4px;
+}
+
+.benefit strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #171717;
+}
+
+.benefit > span:last-child {
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .benefits {
+    gap: 5px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .benefit-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .benefit strong {
+    font-size: 11px;
+  }
+
+  .benefit > span:last-child {
+    font-size: 10px;
+  }
+}
+/* REDUCIR ESPACIOS ENTRE SECCIONES EN MÓVILES */
+
+@media (max-width: 640px) {
+
+  #categorias.section {
+    padding-top: 28px;
+    padding-bottom: 18px;
+  }
+
+  #productos.section {
+    padding-top: 18px;
+    padding-bottom: 32px;
+  }
+
+  #categorias .section-heading {
+    margin-bottom: 16px;
+  }
+
+  #productos .section-heading {
+    margin-bottom: 16px;
+  }
+
+}
+/* PORTADA MÁS COMPACTA EN CELULARES */
+
+@media (max-width: 640px) {
+  .hero-copy {
+    padding: 26px 0 28px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    line-height: 1;
+    margin: 12px 0;
+  }
+
+  .hero p {
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 8px 0;
+  }
+
+  .button-row {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .hero-copy .button-row .button {
+    min-height: 42px;
+    padding: 0 17px;
+    font-size: 9px;
+    border-radius: 12px;
+  }
+}/* PORTADA SIN ESPACIOS VACÍOS EN MÓVILES */
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 0;
+    display: block;
+  }
+
+  .hero-visual {
+    min-height: 190px;
+    height: 190px;
+  }
+}/* CARRUSEL DE BANNERS */
+.hero {
+  display: block;
+  min-height: auto;
+}
+
+.hero-visual {
+  width: 100%;
+  height: clamp(220px, 40vw, 580px);
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  background: #f8e7ee;
+  border-radius: 12px;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-dots {
+  position: absolute;
+  z-index: 2;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid white;
+  border-radius: 50%;
+  background: rgba(255,255,255,.5);
+  cursor: pointer;
+}
+
+.hero-dot.active {
+  background: #F472A8;
+  transform: scale(1.25);
+}
+
+@media (max-width: 640px) {
+  .hero-visual {
+    height: 190px;
+    border-radius: 10px;
+  }
+}/* FOOTER ELEGANTE - TENDENCIA STORE */
+
+.footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 55px 0 22px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 35px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo {
+  width: 280px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.footer-brand p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.footer-contact h3 {
+  margin: 0;
+  color: #171717;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #171717 !important;
+  font-size: 16px !important;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.footer-whatsapp svg {
+  width: 27px;
+  height: 27px;
+  fill: currentColor;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #171717;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.footer-socials a:hover {
+  color: #F472A8;
+  transform: translateY(-3px);
+}
+
+.footer-socials svg {
+  width: 34px;
+  height: 34px;
+}
+
+.footer .copyright {
+  width: 100%;
+  margin-top: 5px;
+  padding-top: 22px;
+  border-top: 1px solid #e8e8e8;
+  color: #777;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 40px 0 18px;
+  }
+
+  .footer-container {
+    gap: 28px;
+  }
+
+  .footer-logo {
+    width: 240px;
+    height: 125px;
+  }
+
+  .footer-brand p {
+    font-size: 12px;
+  }
+
+  .footer-contact h3 {
+    font-size: 15px;
+  }
+
+  .footer-whatsapp {
+    font-size: 14px !important;
+  }
+
+  .footer-socials {
+    gap: 22px;
+  }
+
+  .footer-socials svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .footer .copyright {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+}.footer-socials .footer-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #171717 !important;
+}
+
+.footer-socials .footer-whatsapp svg {
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
 }
